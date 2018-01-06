@@ -76,6 +76,7 @@ class Metronome extends Component {
 
     return (
       <div className="metronome">
+        <h1>React Metronome Demo</h1>
         <div className="bpm-slider">
         <div>{bpm} BPM</div>
           <input
