@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import click1 from './click1.wav';
 import click2 from './click2.wav';
 import './Metronome.css';
+import * as audioContextTimers from 'audio-context-timers';
 
 class Metronome extends Component {
   constructor(props) {
@@ -21,13 +22,13 @@ class Metronome extends Component {
   startStop = () => {
     if (this.state.playing) {
       //stops timer
-      clearInterval(this.timer);
+      audioContextTimers.clearInterval(this.timer);
       this.setState({
         playing: false
       });
     } else {
       //starts timer with current bpm
-      this.timer = setInterval(this.playClick, (60 / this.state.bpm) * 1000);
+      this.timer = audioContextTimers.setInterval(this.playClick, (60 / this.state.bpm) * 1000);
       this.setState({
         count: 0,
         playing: true
@@ -57,8 +58,8 @@ class Metronome extends Component {
 
     if (this.state.playing) {
       //stop the old timer and start a new one
-      clearInterval(this.timer);
-      this.timer = setInterval(this.playClick, (60 / bpm) * 1000);
+      audioContextTimers.clearInterval(this.timer);
+      this.timer = audioContextTimers.setInterval(this.playClick, (60 / bpm) * 1000);
 
       //Set the new bpm, and reset the beat counter
       this.setState({
