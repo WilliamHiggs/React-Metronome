@@ -96,3 +96,4 @@ class Metronome extends Component {
 }
 
 export default Metronome;
+//planning a text input field component for numbers
