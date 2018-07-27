@@ -77,12 +77,45 @@ class Metronome extends Component {
     }
   };
 
+  handleTimeChange = event => {
+    if (event.target.value <= 20 && event.target.value >= 1) {
+      this.setState({
+        beatsPerMeasure: event.target.value
+      });
+    } else {
+      alert("Please select a value between 1 & 20");
+      this.setState({
+        beatsPerMeasure: 4
+      });
+    }
+  };
+
+  componentWillUnmount = () => {
+    this.setState({
+      playing: false,
+      count: 0,
+      bpm: 100,
+      beatsPerMeasure: 4
+    });
+  };
+
   render() {
     const { playing, bpm } = this.state;
 
     return (
       <div className="metronome">
-        <h1>React Metronome Demo</h1>
+        <h1>React Metronome</h1>
+        <div className="time-signature">
+          <div>Time: {this.state.beatsPerMeasure}/4</div>
+          <br />
+          <input
+            type="number"
+            min="1"
+            max="20"
+            onChange={this.handleTimeChange}
+          />
+        </div>
+        <br />
         <div className="bpm-slider">
           <div>{bpm} BPM</div>
           <input
