@@ -69,7 +69,6 @@ class Metronome extends Component {
         this.playClick,
         (60 / bpm) * 1000
       );
-
       //Set the new bpm, and reset the beat counter
       this.setState({
         count: 0,
@@ -87,6 +86,7 @@ class Metronome extends Component {
         beatsPerMeasure: event.target.value
       });
     } else {
+      //disableInput should eliminate the need for this
       alert("Please select a value between 1 & 20");
       this.setState({
         beatsPerMeasure: 4
@@ -149,4 +149,3 @@ class Metronome extends Component {
 }
 
 export default Metronome;
-//planning a text input field component for numbers
