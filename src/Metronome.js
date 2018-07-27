@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import click1 from "./click1.wav";
 import click2 from "./click2.wav";
+import * as audioContextTimers from "audio-context-timers";
 import "./Metronome.css";
 
 class Metronome extends Component {
@@ -10,7 +11,7 @@ class Metronome extends Component {
     this.state = {
       playing: false,
       count: 0,
-      bpm: 100,
+      bpm: 120,
       beatsPerMeasure: 4
     };
 
@@ -21,13 +22,13 @@ class Metronome extends Component {
   startStop = () => {
     if (this.state.playing) {
       //stops timer
-      window.clearInterval(this.timer);
+      audioContextTimers.clearInterval(this.timer);
       this.setState({
         playing: false
       });
     } else {
       //starts timer with current bpm
-      this.timer = window.setInterval(
+      this.timer = audioContextTimers.setInterval(
         this.playClick,
         (60 / this.state.bpm) * 1000
       );
@@ -63,8 +64,11 @@ class Metronome extends Component {
 
     if (this.state.playing) {
       //stop the old timer and start a new one
-      window.clearInterval(this.timer);
-      this.timer = window.setInterval(this.playClick, (60 / bpm) * 1000);
+      audioContextTimers.clearInterval(this.timer);
+      this.timer = audioContextTimers.setInterval(
+        this.playClick,
+        (60 / bpm) * 1000
+      );
 
       //Set the new bpm, and reset the beat counter
       this.setState({
@@ -90,7 +94,13 @@ class Metronome extends Component {
     }
   };
 
+  disableInput = event => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+
   componentWillUnmount = () => {
+    audioContextTimers.clearInterval(this.timer);
     this.setState({
       playing: false,
       count: 0,
@@ -106,27 +116,33 @@ class Metronome extends Component {
       <div className="metronome">
         <h1>React Metronome</h1>
         <div className="time-signature">
-          <div>Time: {this.state.beatsPerMeasure}/4</div>
-          <br />
-          <input
-            type="number"
-            min="1"
-            max="20"
-            onChange={this.handleTimeChange}
-          />
+          <fieldset>
+            <legend>{this.state.beatsPerMeasure}/4 Time</legend>
+            <input
+              type="number"
+              min="1"
+              max="20"
+              onKeyDown={this.disableInput}
+              onChange={this.handleTimeChange}
+            />
+          </fieldset>
         </div>
         <br />
         <div className="bpm-slider">
-          <div>{bpm} BPM</div>
-          <input
-            type="range"
-            min="60"
-            max="240"
-            value={bpm}
-            onChange={this.handleBpmChange}
-          />
+          <fieldset>
+            <legend>{bpm} BPM</legend>
+            <input
+              type="range"
+              min="60"
+              max="240"
+              value={bpm}
+              onChange={this.handleBpmChange}
+            />
+            <button onClick={this.startStop}>
+              {playing ? "Stop" : "Start"}
+            </button>
+          </fieldset>
         </div>
-        <button onClick={this.startStop}>{playing ? "Stop" : "Start"}</button>
       </div>
     );
   }
