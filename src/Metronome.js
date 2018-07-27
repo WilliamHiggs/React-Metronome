@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
-import click1 from './click1.wav';
-import click2 from './click2.wav';
-import './Metronome.css';
+import React, { Component } from "react";
+import click1 from "./click1.wav";
+import click2 from "./click2.wav";
+import "./Metronome.css";
 
 class Metronome extends Component {
   constructor(props) {
@@ -27,14 +27,20 @@ class Metronome extends Component {
       });
     } else {
       //starts timer with current bpm
-      this.timer = window.setInterval(this.playClick, (60 / this.state.bpm) * 1000);
-      this.setState({
-        count: 0,
-        playing: true
-        //plays a click "immediately" (after setState finishes)
-      }, this.playClick);
+      this.timer = window.setInterval(
+        this.playClick,
+        (60 / this.state.bpm) * 1000
+      );
+      this.setState(
+        {
+          count: 0,
+          playing: true
+          //plays a click "immediately" (after setState finishes)
+        },
+        this.playClick
+      );
     }
-  }
+  };
 
   playClick = () => {
     const { count, beatsPerMeasure } = this.state;
@@ -50,7 +56,7 @@ class Metronome extends Component {
     this.setState(state => ({
       count: (state.count + 1) % state.beatsPerMeasure
     }));
-  }
+  };
 
   handleBpmChange = event => {
     const bpm = event.target.value;
@@ -69,7 +75,7 @@ class Metronome extends Component {
       //otherwise just update the bpm
       this.setState({ bpm });
     }
-  }
+  };
 
   render() {
     const { playing, bpm } = this.state;
@@ -78,17 +84,16 @@ class Metronome extends Component {
       <div className="metronome">
         <h1>React Metronome Demo</h1>
         <div className="bpm-slider">
-        <div>{bpm} BPM</div>
+          <div>{bpm} BPM</div>
           <input
             type="range"
             min="60"
             max="240"
             value={bpm}
-            onChange={this.handleBpmChange} />
+            onChange={this.handleBpmChange}
+          />
         </div>
-        <button onClick={this.startStop}>
-          {playing ? 'Stop' : 'Start'}
-        </button>
+        <button onClick={this.startStop}>{playing ? "Stop" : "Start"}</button>
       </div>
     );
   }
