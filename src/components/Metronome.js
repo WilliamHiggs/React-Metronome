@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-<<<<<<< HEAD:src/Metronome.js
-import click1 from "./audio/click1.wav";
-import click2 from "./audio/click2.wav";
-=======
 import click1 from "../audio/click1.wav";
 import click2 from "../audio/click2.wav";
->>>>>>> csb-1533759812051:src/components/Metronome.js
 import * as audioContextTimers from "audio-context-timers";
 import "./Metronome.css";
 
