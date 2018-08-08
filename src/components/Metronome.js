@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import click1 from "./click1.wav";
-import click2 from "./click2.wav";
+import click1 from "../audio/click1.wav";
+import click2 from "../audio/click2.wav";
 import * as audioContextTimers from "audio-context-timers";
 import "./Metronome.css";
 

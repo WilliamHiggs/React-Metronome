@@ -1,7 +1,10 @@
 {
   "name": "react-metronome",
   "version": "0.1.0",
-  "private": true,
+  "description": "",
+  "keywords": ["metronome"],
+  "main": "src/index.js",
+  "private": false,
   "dependencies": {
     "audio-context-timers": "2.1.82",
     "react": "^16.2.0",
