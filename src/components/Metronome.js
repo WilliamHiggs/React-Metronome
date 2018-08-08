@@ -57,7 +57,6 @@ class Metronome extends Component {
     } else {
       this.click1.play();
     }
-
     //Keep track of which beat we're on
     this.setState(state => ({
       count: (state.count + 1) % state.beatsPerMeasure
