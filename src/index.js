@@ -1,8 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Metronome from "./Metronome";
+import Metronome from "./components/Metronome";
 import registerServiceWorker from "./registerServiceWorker";
 
-ReactDOM.render(<Metronome />, document.getElementById("root"));
-registerServiceWorker();
+function App() {
+  return (
+    <div className="App">
+      <Metronome />
+    </div>
+  );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+
+export default App;
