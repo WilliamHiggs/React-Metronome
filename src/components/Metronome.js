@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import click1 from "../audio/click1.wav";
 import click2 from "../audio/click2.wav";
+import bleep1 from "../audio/bleep1.wav";
+import bleep2 from "../audio/bleep2.wav";
+import drum1 from "../audio/drum1.wav";
+import drum2 from "../drum2.wav";
 import * as audioContextTimers from "audio-context-timers";
 import "./Metronome.css";
 
@@ -46,12 +50,35 @@ class Metronome extends Component {
 
   playClick = () => {
     const { count, beatsPerMeasure } = this.state;
-
     //The first beat will have a different sound that the others
     if (count % beatsPerMeasure === 0) {
-      this.click2.play();
+      switch (this.state.click) {
+        case "Click":
+          this.click2.play();
+          break;
+        case "Bleep":
+          this.bleep2.play();
+          break;
+        case "808":
+          this.drum2.play();
+          break;
+        default:
+          this.click2.play();
+      }
     } else {
-      this.click1.play();
+      switch (this.state.click) {
+        case "Click":
+          this.click1.play();
+          break;
+        case "Bleep":
+          this.bleep1.play();
+          break;
+        case "808":
+          this.drum1.play();
+          break;
+        default:
+          this.click1.play();
+      }
     }
     //Keep track of which beat we're on
     this.setState(state => ({
