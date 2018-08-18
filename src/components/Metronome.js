@@ -3,8 +3,8 @@ import click1 from "../audio/click1.wav";
 import click2 from "../audio/click2.wav";
 import bleep1 from "../audio/bleep1.wav";
 import bleep2 from "../audio/bleep2.wav";
-import drum1 from "../audio/drum1.wav";
-import drum2 from "../drum2.wav";
+//import drum1 from "../audio/drum1.wav";
+//import drum2 from "../drum2.wav";
 import * as audioContextTimers from "audio-context-timers";
 import "./Metronome.css";
 
@@ -22,6 +22,8 @@ class Metronome extends Component {
 
     this.click1 = new Audio(click1);
     this.click2 = new Audio(click2);
+    this.bleep1 = new Audio(bleep1);
+    this.bleep2 = new Audio(bleep2);
   }
 
   startStop = () => {
@@ -123,6 +125,7 @@ class Metronome extends Component {
 
   handleClickChange = event => {
     this.setState({
+      count: 0,
       click: event.target.value
     });
   };
@@ -137,7 +140,7 @@ class Metronome extends Component {
     this.setState({
       playing: false,
       count: 0,
-      bpm: 100,
+      bpm: 120,
       beatsPerMeasure: 4,
       click: "Click"
     });
