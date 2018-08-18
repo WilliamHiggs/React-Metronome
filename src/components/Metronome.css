@@ -141,3 +141,31 @@ input[type="range"]:focus::-ms-fill-upper {
   color: #fff;
   font-size: 18px;
 }
+
+.click-type fieldset {
+  text-align: center;
+  border: 2px solid white;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  margin: 10px;
+}
+
+.click-input {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.click-input input {
+  display: inline-flex;
+  margin: 0 auto 0px;
+}
+
+.click-input label {
+  display: inline-flex;
+  margin: 0 auto 0px;
+}

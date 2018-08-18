@@ -12,7 +12,8 @@ class Metronome extends Component {
       playing: false,
       count: 0,
       bpm: 120,
-      beatsPerMeasure: 4
+      beatsPerMeasure: 4,
+      click: "Click"
     };
 
     this.click1 = new Audio(click1);
@@ -93,6 +94,12 @@ class Metronome extends Component {
     }
   };
 
+  handleClickChange = event => {
+    this.setState({
+      click: event.target.value
+    });
+  };
+
   disableInput = event => {
     event.preventDefault();
     event.stopPropagation();
@@ -104,12 +111,13 @@ class Metronome extends Component {
       playing: false,
       count: 0,
       bpm: 100,
-      beatsPerMeasure: 4
+      beatsPerMeasure: 4,
+      click: "Click"
     });
   };
 
   render() {
-    const { playing, bpm } = this.state;
+    const { playing, bpm, click } = this.state;
 
     return (
       <div className="metronome">
@@ -140,6 +148,34 @@ class Metronome extends Component {
             <button onClick={this.startStop}>
               {playing ? "Stop" : "Start"}
             </button>
+          </fieldset>
+        </div>
+        <div className="click-type">
+          <fieldset>
+            <legend>{click}</legend>
+            <div className="click-input">
+              <label>Click</label>
+              <input
+                type="radio"
+                value="Click"
+                checked={this.state.click === "Click"}
+                onChange={this.handleClickChange}
+              />
+              <label>Bleep</label>
+              <input
+                type="radio"
+                value="Bleep"
+                checked={this.state.click === "Bleep"}
+                onChange={this.handleClickChange}
+              />
+              <label>808</label>
+              <input
+                type="radio"
+                value="808"
+                checked={this.state.click === "808"}
+                onChange={this.handleClickChange}
+              />
+            </div>
           </fieldset>
         </div>
       </div>
