@@ -125,7 +125,6 @@ class Metronome extends Component {
 
   handleClickChange = event => {
     this.setState({
-      count: 0,
       click: event.target.value
     });
   };
