@@ -148,24 +148,43 @@ input[type="range"]:focus::-ms-fill-upper {
   -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
   border-radius: 8px;
-  margin: 10px;
 }
 
 .click-input {
-  width: auto;
-  height: auto;
-  display: flex;
+  width: 100%;
+  height: 25px;
+  margin-left: -30px;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
 }
 
-.click-input input {
-  display: inline-flex;
-  margin: 0 auto 0px;
-}
-
 .click-input label {
   display: inline-flex;
-  margin: 0 auto 0px;
+  margin: auto auto auto;
+}
+
+.click-input input[type="radio"]:after {
+  display: inline-flex;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: relative;
+  background-color: #d1d3d1;
+  content: "";
+  border: 2px solid white;
+  margin: auto auto auto;
+}
+
+.click-input input[type="radio"]:checked:after {
+  display: inline-flex;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  position: relative;
+  background-color: #ca3435;
+  content: "";
+  border: 2px solid white;
+  margin: auto auto auto;
 }

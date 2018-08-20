@@ -181,6 +181,7 @@ class Metronome extends Component {
             </button>
           </fieldset>
         </div>
+        <br />
         <div className="click-type">
           <fieldset>
             <legend>{click}</legend>
