@@ -17,7 +17,7 @@ class Metronome extends Component {
       count: 0,
       bpm: 120,
       beatsPerMeasure: 4,
-      click: "Click"
+      click: "Bleep"
     };
 
     this.click1 = new Audio(click1);
