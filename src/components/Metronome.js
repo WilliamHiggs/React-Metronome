@@ -5,8 +5,8 @@ import bleep1 from "../audio/bleep1.wav";
 import bleep2 from "../audio/bleep2.wav";
 import drum1 from "../audio/drum1.wav";
 import drum2 from "../audio/drum2.wav";
-import * as audioContextTimers from "audio-context-timers";
 import "./Metronome.css";
+import ci from 'correcting-interval';
 
 class Metronome extends Component {
   constructor(props) {
@@ -26,19 +26,27 @@ class Metronome extends Component {
     this.bleep2 = new Audio(bleep2);
     this.drum1 = new Audio(drum1);
     this.drum2 = new Audio(drum2);
+
+    this.startStop = this.startStop.bind(this);
+    this.playClick = this.playClick.bind(this);
+    this.handleBpmChange = this.handleBpmChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
+    this.handleClickChange = this.handleClickChange.bind(this);
   }
 
-  startStop = () => {
+  startStop() {
     if (this.state.playing) {
       //stops timer
-      audioContextTimers.clearInterval(this.timer);
+      ci.clearCorrectingInterval(this.timer);
       this.setState({
         playing: false
       });
     } else {
       //starts timer with current bpm
-      this.timer = audioContextTimers.setInterval(
-        this.playClick,
+      var that = this;
+      this.timer = ci.setCorrectingInterval(function() {
+        that.playClick();
+      },
         (60 / this.state.bpm) * 1000
       );
       this.setState(
@@ -52,7 +60,7 @@ class Metronome extends Component {
     }
   };
 
-  playClick = () => {
+  playClick() {
     const { count, beatsPerMeasure } = this.state;
     //The first beat will have a different sound that the others
     if (count % beatsPerMeasure === 0) {
@@ -90,15 +98,17 @@ class Metronome extends Component {
     }));
   };
 
-  handleBpmChange = event => {
+  handleBpmChange(event) {
     const bpm = event.target.value;
 
     if (this.state.playing) {
       //stop the old timer and start a new one
-      audioContextTimers.clearInterval(this.timer);
-      this.timer = audioContextTimers.setInterval(
-        this.playClick,
-        (60 / bpm) * 1000
+      var that = this;
+      ci.clearCorrectingInterval(this.timer);
+      this.timer = ci.setCorrectingInterval(() => {
+        that.playClick();
+      },
+        (60 / this.state.bpm) * 1000
       );
       //Set the new bpm, and reset the beat counter
       this.setState({
@@ -111,7 +121,7 @@ class Metronome extends Component {
     }
   };
 
-  handleTimeChange = event => {
+  handleTimeChange(event) {
     if (event.target.value <= 20 && event.target.value >= 1) {
       this.setState({
         beatsPerMeasure: event.target.value
@@ -125,19 +135,19 @@ class Metronome extends Component {
     }
   };
 
-  handleClickChange = event => {
+  handleClickChange(event) {
     this.setState({
       click: event.target.value
     });
   };
 
-  disableInput = event => {
+  disableInput(event) {
     event.preventDefault();
     event.stopPropagation();
   };
 
-  componentWillUnmount = () => {
-    audioContextTimers.clearInterval(this.timer);
+  componentWillUnmount() {
+    ci.clearCorrectingInterval(this.timer);
     this.setState({
       playing: false,
       count: 0,
